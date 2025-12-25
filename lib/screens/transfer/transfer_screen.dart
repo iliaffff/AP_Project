@@ -13,6 +13,7 @@ class _TransferScreenState extends State<TransferScreen> {
   final TextEditingController destinationController = TextEditingController();
   final TextEditingController amountController = TextEditingController();
 
+  @override
   Widget build(BuildContext context) {
     final accounts = FakeData.accounts;
 

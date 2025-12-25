@@ -4,6 +4,7 @@ import '../../data/fake_data.dart';
 class GroupsListScreen extends StatelessWidget {
   const GroupsListScreen({super.key});
 
+  @override
   Widget build(BuildContext context) {
     final groups = FakeData.groups;
 

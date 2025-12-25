@@ -9,6 +9,7 @@ class AccountsListScreen extends StatelessWidget {
     return type == 'جاری' ? Icons.account_balance : Icons.savings;
   }
 
+  @override
   Widget build(BuildContext context) {
     final List<Account> accounts = FakeData.accounts;
     

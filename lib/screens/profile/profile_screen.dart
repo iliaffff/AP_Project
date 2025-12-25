@@ -26,6 +26,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     final user = FakeData.currentUser;
 
