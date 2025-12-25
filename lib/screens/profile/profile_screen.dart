@@ -1,8 +1,30 @@
 import 'package:flutter/material.dart';
 import '../../data/fake_data.dart';
+import '../../models/user.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  late User user;
+  void initState() {
+    super.initState();
+    user = FakeData.currentUser;
+  }
+
+  void SwitchUser() {
+    setState(() {
+      if (FakeData.currentUser == FakeData.users[0]) {
+        FakeData.currentUser = FakeData.users[1];
+      } else {
+        FakeData.currentUser = FakeData.users[0];
+      }
+      user = FakeData.currentUser;
+    });
+  }
 
   Widget build(BuildContext context) {
     final user = FakeData.currentUser;
@@ -29,10 +51,19 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-            Text('@${user.name}',
+            Text('@${user.username}',
               style: const TextStyle(color: Colors.grey),
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 30),
+
+            //دکمه سوییچ یوزر
+            ElevatedButton.icon(
+                onPressed: SwitchUser,
+                icon: const Icon(Icons.switch_account),
+                label: const Text('تغییر کاربر'),
+            ),
+            const SizedBox(height: 30),
+
             ListTile(
               leading: const Icon(Icons.edit),
               title: const Text('ویرایش اطلاعات'),
