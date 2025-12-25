@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'sign_in.dart';
+import 'theme_controller.dart';
 
 void main() {
   runApp(const MyApp());
@@ -7,116 +10,169 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+  ThemeData _buildDarkTheme() {
+    final cs = ColorScheme.fromSeed(
+      seedColor: const Color(0xFF7C4DFF),
+      brightness: Brightness.dark,
     );
-  }
-}
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+    return ThemeData(
+      useMaterial3: true,
+      brightness: Brightness.dark,
+      fontFamily: 'Vazirmatn',
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
+      colorScheme: cs,
+      scaffoldBackgroundColor: const Color(0xFF0F1115),
 
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+      appBarTheme: const AppBarTheme(
+        elevation: 0,
+        centerTitle: true,
+        backgroundColor: Color(0xFF12141A),
+        surfaceTintColor: Colors.transparent,
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: .center,
-          children: [
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+
+      cardTheme: CardThemeData(
+        elevation: 0,
+        color: const Color(0xFF191C24),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      ),
+
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: const Color(0xFF191C24),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(14),
+          borderSide: BorderSide(color: Colors.white.withOpacity(0.10)),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(14),
+          borderSide: BorderSide(color: Colors.white.withOpacity(0.10)),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(14),
+          borderSide: const BorderSide(color: Color(0xFF7C4DFF), width: 1.4),
+        ),
+        hintStyle: TextStyle(color: Colors.white.withOpacity(0.55)),
+        labelStyle: TextStyle(color: Colors.white.withOpacity(0.85)),
+      ),
+
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          minimumSize: const Size.fromHeight(50),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+          textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: const Color(0xFF12141A),
+        selectedItemColor: const Color(0xFFB39DFF),
+        unselectedItemColor: Colors.white.withOpacity(0.55),
+        type: BottomNavigationBarType.fixed,
+        elevation: 0,
       ),
+    );
+  }
+
+  ThemeData _buildLightTheme() {
+    final cs = ColorScheme.fromSeed(
+      seedColor: const Color(0xFF7C4DFF),
+      brightness: Brightness.light,
+    );
+
+    return ThemeData(
+      useMaterial3: true,
+      brightness: Brightness.light,
+      fontFamily: 'Vazirmatn',
+
+      colorScheme: cs,
+      scaffoldBackgroundColor: Colors.white,
+
+      appBarTheme: const AppBarTheme(
+        elevation: 0,
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black87,
+        surfaceTintColor: Colors.transparent,
+      ),
+
+      cardTheme: CardThemeData(
+        elevation: 0,
+        color: const Color(0xFFF4F3F9),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      ),
+
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: const Color(0xFFF4F3F9),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(14),
+          borderSide: BorderSide(color: Colors.black.withOpacity(0.10)),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(14),
+          borderSide: BorderSide(color: Colors.black.withOpacity(0.10)),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(14),
+          borderSide: const BorderSide(color: Color(0xFF7C4DFF), width: 1.4),
+        ),
+        hintStyle: TextStyle(color: Colors.black.withOpacity(0.45)),
+        labelStyle: TextStyle(color: Colors.black.withOpacity(0.75)),
+      ),
+
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          minimumSize: const Size.fromHeight(50),
+          backgroundColor: const Color(0xFF7C4DFF),
+          foregroundColor: Colors.white,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+          textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+        ),
+      ),
+
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: Colors.white,
+        selectedItemColor: const Color(0xFF7C4DFF),
+        unselectedItemColor: Colors.black.withOpacity(0.55),
+        type: BottomNavigationBarType.fixed,
+        elevation: 0,
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder<ThemeMode>(
+      valueListenable: ThemeController.mode,
+      builder: (context, mode, _) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+
+          locale: const Locale('fa'),
+          supportedLocales: const [Locale('fa'), Locale('en')],
+          localizationsDelegates: const [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+
+          theme: _buildLightTheme(),
+          darkTheme: _buildDarkTheme(),
+          themeMode: mode,
+
+          builder: (context, child) {
+            return Directionality(
+              textDirection: TextDirection.rtl,
+              child: child!,
+            );
+          },
+
+          home: const Screen1(),
+        );
+      },
     );
   }
 }
