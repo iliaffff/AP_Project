@@ -1,5 +1,6 @@
 import '../models/account.dart';
 import '../models/user.dart';
+import '../models/group.dart';
 
 class FakeData {
   //مشخصات حساب ها
@@ -26,4 +27,16 @@ class FakeData {
   ];
   //یوزر فعال
   static User currentUser = users[0];
+
+  static List<Group> groups = [
+    Group(
+      name: 'سفر شمال',
+      members: ['سارا' ,'کیانا' ,'هلیا'],
+    ),
+    Group(
+      name: 'خانه دانشجویی',
+      members: ['ایلیا' ,'علی'],
+    ),
+  ];
+
 }
