@@ -5,7 +5,7 @@ import 'models/account.dart';
 class AccountsManagementPage extends StatelessWidget {
   const AccountsManagementPage({super.key});
 
-  String _formatMoney(num value) {
+  static String _formatMoney(num value) {
     return value.toStringAsFixed(0).replaceAllMapped(
       RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
           (m) => '${m[1]},',
@@ -17,62 +17,89 @@ class AccountsManagementPage extends StatelessWidget {
     final cs = Theme.of(context).colorScheme;
     final List<Account> accounts = FakeData.accounts;
 
-    if (accounts.isEmpty) {
-      return Center(
-        child: Text(
-          'حسابی برای نمایش وجود ندارد',
-          style: TextStyle(color: Theme.of(context).hintColor),
-        ),
-      );
-    }
-
     return ListView.separated(
-      padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
+      padding: const EdgeInsets.fromLTRB(16, 14, 16, 18),
       itemCount: accounts.length,
-      separatorBuilder: (_, __) => const SizedBox(height: 12),
+      separatorBuilder: (_, __) => const SizedBox(height: 14),
       itemBuilder: (context, index) {
         final a = accounts[index];
 
-        return Card(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        'حساب ${a.type}',
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        a.id,
-                        textDirection: TextDirection.ltr,
-                        style: TextStyle(
-                          color: Theme.of(context).hintColor,
-                          fontSize: 13,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(width: 14),
-                Text(
-                  _formatMoney(a.balance),
-                  textDirection: TextDirection.ltr,
-                  style: TextStyle(
-                    color: cs.primary,
-                    fontWeight: FontWeight.w900,
-                    fontSize: 14,
-                  ),
-                ),
-              ],
+        return Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          decoration: BoxDecoration(
+            color: Theme.of(context).cardColor.withOpacity(
+              Theme.of(context).brightness == Brightness.dark ? 0.55 : 1,
             ),
+            borderRadius: BorderRadius.circular(18),
+            border: Border.all(
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white10
+                  : Colors.black12,
+            ),
+          ),
+          child: Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '${_formatMoney(a.balance)}',
+                    textDirection: TextDirection.ltr,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w900,
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    'تومان',
+                    style: TextStyle(
+                      color: Theme.of(context).hintColor,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ],
+              ),
+
+              const Spacer(),
+
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    'حساب ${a.type}',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w900,
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    a.id,
+                    textDirection: TextDirection.ltr,
+                    style: TextStyle(color: Theme.of(context).hintColor),
+                  ),
+                ],
+              ),
+
+              const SizedBox(width: 14),
+
+              Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: cs.primary.withOpacity(
+                    Theme.of(context).brightness == Brightness.dark ? 0.25 : 0.15,
+                  ),
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: Icon(
+                  Icons.account_balance_wallet_rounded,
+                  color: cs.primary,
+                  size: 22,
+                ),
+              ),
+            ],
           ),
         );
       },
