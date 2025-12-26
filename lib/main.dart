@@ -1,3 +1,4 @@
+import 'package:ap_project/screens/welcome/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'screens/accounts/accounts_list_screen.dart';
 
@@ -11,7 +12,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const AccountsListScreen(),
+      title: 'پی بانک',
+      home: const WelcomeScreen(),
     );
   }
 }
