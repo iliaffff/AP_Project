@@ -39,7 +39,16 @@ class _BillPaymentScreenState extends State<BillPaymentScreen> {
             const SizedBox(height: 30),
             ElevatedButton(
               onPressed: () {
-                //پرداخت قبض
+                //نمایش پیام موفقیت
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('قبض با موفقیت پرداخت شد'),
+                    backgroundColor: Colors.green,
+                  ),
+                );
+                //پاک کردن فرم
+                billIdController.clear();
+                paymentIdController.clear();
               },
               child: const Text('پرداخت قبض'),
             ),

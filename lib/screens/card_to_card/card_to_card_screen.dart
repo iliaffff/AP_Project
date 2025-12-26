@@ -63,7 +63,19 @@ class _CardToCardScreenState extends State<CardToCardScreen> {
             const SizedBox(height: 30),
             ElevatedButton(
               onPressed: () {
-                //کارت به کارت
+                //نمایش پیام موفقیت
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('کارت به کارت با موفقیت انجام شد'),
+                    backgroundColor: Colors.green,
+                  ),
+                );
+                //پاک کردن فرم
+                destinationCardController.clear();
+                amountController.clear();
+                setState(() {
+                  selectedAccount = null;
+                });
               },
               child: const Text('انجام کارت به کارت'),
             ),

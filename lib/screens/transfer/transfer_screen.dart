@@ -60,7 +60,19 @@ class _TransferScreenState extends State<TransferScreen> {
             const SizedBox(height: 30),
             ElevatedButton(
               onPressed: () {
-                //انتقال وجه
+                //نمایش پیام موفقیت
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('انتقال وجه با موفقیت انجام شد'),
+                    backgroundColor: Colors.green,
+                  ),
+                );
+                //پاک کردن فرم
+                destinationController.clear();
+                amountController.clear();
+                setState(() {
+                  selectedAccount = null;
+                });
               },
               child: const Text('انتقال'),
             ),
