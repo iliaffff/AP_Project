@@ -39,6 +39,17 @@ class _BillPaymentScreenState extends State<BillPaymentScreen> {
             const SizedBox(height: 30),
             ElevatedButton(
               onPressed: () {
+                if (billIdController.text.isEmpty ||
+                    paymentIdController.text.isEmpty) {
+                  //نمایش پیام خطا
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('لطفا اصلاعات قبض را وارد کنید'),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                  return;
+                }
                 //نمایش پیام موفقیت
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(

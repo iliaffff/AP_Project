@@ -60,6 +60,18 @@ class _TransferScreenState extends State<TransferScreen> {
             const SizedBox(height: 30),
             ElevatedButton(
               onPressed: () {
+                if (destinationController.text.isEmpty ||
+                    amountController.text.isEmpty ||
+                    selectedAccount == null) {
+                  //نمایش پیام خطا
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('لطفا همه فیلد ها را پر کنید'),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                  return;
+                }
                 //نمایش پیام موفقیت
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
