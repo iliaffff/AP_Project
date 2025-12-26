@@ -13,9 +13,10 @@ class WelcomeScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(
-                  Icons.account_balance,
-                  size: 90,
+                Image.asset(
+                  'asset/images/img.pnj',
+                  width: 120,
+                  height: 120,
                 ),
                 const SizedBox(height: 30),
                 const Text(
