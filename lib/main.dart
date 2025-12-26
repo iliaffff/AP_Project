@@ -1,4 +1,4 @@
-import 'package:ap_project/screens/welcome/welcome_screen.dart';
+import 'package:ap_project/screens/welcome/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'screens/accounts/accounts_list_screen.dart';
 
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'پی بانک',
-      home: const WelcomeScreen(),
+      home: const SplashScreen(),
     );
   }
 }
