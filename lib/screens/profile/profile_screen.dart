@@ -10,6 +10,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   late User user;
+
   void initState() {
     super.initState();
     user = FakeData.currentUser;
@@ -31,37 +32,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final user = FakeData.currentUser;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('پروفایل کاربری'),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text('پروفایل کاربری'), centerTitle: true),
       body: Padding(
         padding: const EdgeInsets.all(24),
         child: Column(
           children: [
-            const CircleAvatar(
-              radius: 45,
-              child: Icon(Icons.person, size: 50),
-            ),
+            const CircleAvatar(radius: 45, child: Icon(Icons.person, size: 50)),
             const SizedBox(height: 20),
             Text(
               user.name,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
-            Text('@${user.username}',
+            Text(
+              '@${user.username}',
               style: const TextStyle(color: Colors.grey),
             ),
             const SizedBox(height: 30),
 
             //دکمه سوییچ یوزر
             ElevatedButton.icon(
-                onPressed: SwitchUser,
-                icon: const Icon(Icons.switch_account),
-                label: const Text('تغییر کاربر'),
+              onPressed: SwitchUser,
+              icon: const Icon(Icons.switch_account),
+              label: const Text('تغییر کاربر'),
             ),
             const SizedBox(height: 30),
 
@@ -77,7 +70,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ],
         ),
-        ),
-      );
+      ),
+    );
   }
 }

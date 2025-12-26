@@ -9,54 +9,44 @@ class WelcomeScreen extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Padding(
-            padding: const EdgeInsets.all(32),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(
-                  'asset/images/img.pnj',
-                  width: 120,
-                  height: 120,
+          padding: const EdgeInsets.all(32),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset('asset/images/img.pnj', width: 120, height: 120),
+              const SizedBox(height: 30),
+              const Text(
+                'پی بانک',
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.green,
                 ),
-                const SizedBox(height: 30),
-                const Text(
-                  'پی بانک',
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.green,
-                  ),
+              ),
+              const SizedBox(height: 12),
+              const Text(
+                'مدیریت هوشمند خدمات بانکی',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 16, color: Colors.grey),
+              ),
+              const SizedBox(height: 50),
+              SizedBox(
+                width: double.infinity,
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const AccountsListScreen(),
+                      ),
+                    );
+                  },
+                  child: const Text('ورود', style: TextStyle(fontSize: 18)),
                 ),
-                const SizedBox(height: 12),
-                const Text(
-                  'مدیریت هوشمند خدمات بانکی',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey,
-                  ),
-                ),
-                const SizedBox(height: 50),
-                SizedBox(
-                  width: double.infinity,
-                  height: 50,
-                  child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const AccountsListScreen(),
-                          ),
-                        );
-                      },
-                        child: const Text(
-                          'ورود',
-                          style: TextStyle(fontSize: 18),
-                        ),
-                ),
-                ),
-              ],
-            ),
+              ),
+            ],
+          ),
         ),
       ),
     );

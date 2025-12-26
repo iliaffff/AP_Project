@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import '../../data/fake_data.dart';
 import '../../models/account.dart';
 
-class TransferScreen extends StatefulWidget {
-  const TransferScreen({super.key});
+class CardToCardScreen extends StatefulWidget {
+  const CardToCardScreen({super.key});
 
-  State<TransferScreen> createState() => _TransferScreenState();
+  @override
+  State<CardToCardScreen> createState() => _CardToCardScreenState();
 }
 
-class _TransferScreenState extends State<TransferScreen> {
+class _CardToCardScreenState extends State<CardToCardScreen> {
   Account? selectedAccount;
-  final TextEditingController destinationController = TextEditingController();
+  final TextEditingController destinationCardController =
+      TextEditingController();
   final TextEditingController amountController = TextEditingController();
 
   @override
@@ -18,20 +20,20 @@ class _TransferScreenState extends State<TransferScreen> {
     final accounts = FakeData.accounts;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('انتقال وجه'), centerTitle: true),
+      appBar: AppBar(title: const Text('کارت به کارت'), centerTitle: true),
       body: Padding(
         padding: const EdgeInsets.all(24),
         child: Column(
           children: [
             DropdownButtonFormField<Account>(
               decoration: const InputDecoration(
-                labelText: 'حساب مبدا',
+                labelText: 'کارت مبدا',
                 border: OutlineInputBorder(),
               ),
               items: accounts.map((account) {
                 return DropdownMenuItem(
                   value: account,
-                  child: Text('${account.type} -${account.id}'),
+                  child: Text('${account.type} - ${account.id}'),
                 );
               }).toList(),
               onChanged: (value) {
@@ -42,9 +44,10 @@ class _TransferScreenState extends State<TransferScreen> {
             ),
             const SizedBox(height: 20),
             TextField(
-              controller: destinationController,
+              controller: destinationCardController,
+              keyboardType: TextInputType.number,
               decoration: const InputDecoration(
-                labelText: 'شماره حساب مقصد',
+                labelText: 'شماره کارت مقصد',
                 border: OutlineInputBorder(),
               ),
             ),
@@ -60,9 +63,9 @@ class _TransferScreenState extends State<TransferScreen> {
             const SizedBox(height: 30),
             ElevatedButton(
               onPressed: () {
-                //انتقال وجه
+                //کارت به کارت
               },
-              child: const Text('انتقال'),
+              child: const Text('انجام کارت به کارت'),
             ),
           ],
         ),
