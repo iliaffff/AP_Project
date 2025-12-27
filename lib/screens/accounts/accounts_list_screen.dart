@@ -4,8 +4,22 @@ import 'package:flutter/material.dart';
 import '../../data/fake_data.dart';
 import '../../models/account.dart';
 
-class AccountsListScreen extends StatelessWidget {
+
+class AccountsListScreen extends StatefulWidget {
   const AccountsListScreen({super.key});
+
+  State<AccountListScreen> createState() => _AccountsListScreenState();
+}
+
+class _AccountsListScreenState extends State<AccountsListScreen> {
+  TextEditingController searchController = TextEditingController();
+  List<Account> filteredAccounts = [];
+
+  @override
+  void initState() {
+    super.initState();
+    filteredAccounts = FakeData.accounts;
+  }
 
   IconData _getIcon(String type) {
     return type == 'جاری' ? Icons.account_balance : Icons.savings;
@@ -55,11 +69,34 @@ class AccountsListScreen extends StatelessWidget {
               ],
             ),
           ),
+
+          //نوار جستجو
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: TextField(
+              controller: searchController,
+              decoration: const InputDecoration(
+                labelText: 'جستجوی حساب',
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(),
+              ),
+              onChanged: (value) {
+                setState(() {
+                  filteredAccounts =
+                      accounts.where((a) =>
+                      a.type.contains(value) ||
+                          a.id.contains(value)).toList();
+                });
+              },
+            ),
+          ),
+
+          //لیست حساب ها
           Expanded(
             child: ListView.builder(
-              itemCount: accounts.length,
+              itemCount: filteredAccounts.length,
               itemBuilder: (context, index) {
-                final account = accounts[index];
+                final account = filteredAccounts[index];
                 return Card(
                   elevation: 3,
                   margin: const EdgeInsets.symmetric(
