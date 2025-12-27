@@ -8,7 +8,7 @@ import '../../models/account.dart';
 class AccountsListScreen extends StatefulWidget {
   const AccountsListScreen({super.key});
 
-  State<AccountListScreen> createState() => _AccountsListScreenState();
+  State<AccountsListScreen> createState() => _AccountsListScreenState();
 }
 
 class _AccountsListScreenState extends State<AccountsListScreen> {
