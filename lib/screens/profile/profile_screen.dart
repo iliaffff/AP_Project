@@ -47,7 +47,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  user.name = nameController.text;
+                  user = User(
+                    name: nameController.text,
+                    username: user.username,
+                  );
                 });
                 Navigator.pop(context);
               },
