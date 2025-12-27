@@ -66,7 +66,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ListTile(
               leading: const Icon(Icons.logout),
               title: const Text('خروج از حساب'),
-              onTap: () {},
+              onTap: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const SplashScreen(),
+                  ),
+                    (route) => false,
+                );
+              },
             ),
           ],
         ),
