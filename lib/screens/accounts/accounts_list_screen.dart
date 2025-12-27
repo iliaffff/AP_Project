@@ -18,7 +18,7 @@ class _AccountsListScreenState extends State<AccountsListScreen> {
   @override
   void initState() {
     super.initState();
-    filteredAccounts = List.form(FakeData.accounts);
+    filteredAccounts = List.from(FakeData.accounts);
   }
 
   IconData _getIcon(String type) {
@@ -40,7 +40,7 @@ class _AccountsListScreenState extends State<AccountsListScreen> {
               context: context,
               builder: (_) {
                 TextEditingController typeController = TextEditingController();
-                TextEditingcontroller balanceController = TextEditingController();
+                TextEditingController balanceController = TextEditingController();
 
                 return AlertDialog(
                   title: const Text('ایجاد حساب جدید'),
