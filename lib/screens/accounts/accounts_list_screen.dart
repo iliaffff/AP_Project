@@ -30,156 +30,158 @@ class _AccountsListScreenState extends State<AccountsListScreen> {
     final List<Account> accounts = FakeData.accounts;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('مدیریت حساب ها'), centerTitle: true),
-      actions: [
-        //ایجاد حساب جدید
-        IconButton(
-          icon: const Icon(Icons.add),
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (_) {
-                TextEditingController typeController = TextEditingController();
-                TextEditingController balanceController = TextEditingController();
+        appBar: AppBar(title: const Text('مدیریت حساب ها'), centerTitle: true,
+          actions: [
+            //ایجاد حساب جدید
+            IconButton(
+              icon: const Icon(Icons.add),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (_) {
+                    TextEditingController typeController = TextEditingController();
+                    TextEditingController balanceController = TextEditingController();
 
-                return AlertDialog(
-                  title: const Text('ایجاد حساب جدید'),
-                  content: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      TextField(
-                        controller: typeController,
-                        decoration: const InputDecoration(
-                          labelText: 'نوع حساب',
-                        ),
+                    return AlertDialog(
+                      title: const Text('ایجاد حساب جدید'),
+                      content: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          TextField(
+                            controller: typeController,
+                            decoration: const InputDecoration(
+                              labelText: 'نوع حساب',
+                            ),
+                          ),
+                          TextField(
+                            controller: balanceController,
+                            decoration: const InputDecoration(
+                              labelText: 'موجودی اولیه',
+                            ),
+                            keyboardType: TextInputType.number,
+                          ),
+                        ],
                       ),
-                      TextField(
-                        controller: balanceController,
-                        decoration: const InputDecoration(
-                          labelText: 'موجودی اولیه',
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: const Text('لغو'),
                         ),
-                        keyboardType: TextInputType.number,
-                      ),
-                    ],
-                  ),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: const Text('لغو'),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          final newAccount = Account(
-                            id: DateTime.now().toString(),
-                            type: typeController.text,
-                            balance:
-                            double.tryParse(balanceController.text) ?? 0.0,
+                        ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              final newAccount = Account(
+                                id: DateTime.now().toString(),
+                                type: typeController.text,
+                                balance:
+                                double.tryParse(balanceController.text) ?? 0.0,
+                              );
+                              accounts.add(newAccount);
+                              filteredAccounts.add(newAccount);
+                            });
+                            Navigator.pop(context);
+                          },
+                          child: const Text('ایجاد'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+            ),
+          ],
+        ),
+          body: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton.icon(
+                        icon: const Icon(Icons.credit_card),
+                        label: const Text('کارت به کارت'),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const CardToCardScreen(),
+                            ),
                           );
-                          accounts.add(newAccount);
-                          filteredAccounts.add(newAccount);
-                        });
-                        Navigator.pop(context);
-                      },
-                      child: const Text('ایجاد'),
+                        },
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: ElevatedButton.icon(
+                        icon: const Icon(Icons.receipt_long),
+                        label: const Text('پرداخت قبض'),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const BillPaymentScreen(),
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   ],
-                );
-              },
-            );
-          },
-        ),
-      ],
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Row(
-              children: [
-                Expanded(
-                  child: ElevatedButton.icon(
-                    icon: const Icon(Icons.credit_card),
-                    label: const Text('کارت به کارت'),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const CardToCardScreen(),
-                        ),
-                      );
-                    },
-                  ),
                 ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: ElevatedButton.icon(
-                    icon: const Icon(Icons.receipt_long),
-                    label: const Text('پرداخت قبض'),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const BillPaymentScreen(),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          //نوار جستجو
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: TextField(
-              controller: searchController,
-              decoration: const InputDecoration(
-                labelText: 'جستجوی حساب',
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(),
               ),
-              onChanged: (value) {
-                setState(() {
-                  filteredAccounts =
-                      accounts.where((a) =>
-                      a.type.contains(value) ||
-                          a.id.contains(value)).toList();
-                });
-              },
-            ),
-          ),
 
-          //لیست حساب ها
-          Expanded(
-            child: ListView.builder(
-              itemCount: filteredAccounts.length,
-              itemBuilder: (context, index) {
-                final account = filteredAccounts[index];
-                return Card(
-                  elevation: 3,
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 10,
+              //نوار جستجو
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 16, vertical: 8),
+                child: TextField(
+                  controller: searchController,
+                  decoration: const InputDecoration(
+                    labelText: 'جستجوی حساب',
+                    prefixIcon: Icon(Icons.search),
+                    border: OutlineInputBorder(),
                   ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: ListTile(
-                    leading: Icon(_getIcon(account.type), size: 32),
-                    title: Text(' حساب${account.type}'),
-                    subtitle: Text(account.id),
-                    trailing: Text(
-                      '${account.balance}تومان ',
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                );
-              },
-            ),
+                  onChanged: (value) {
+                    setState(() {
+                      filteredAccounts =
+                          accounts.where((a) =>
+                          a.type.contains(value) ||
+                              a.id.contains(value)).toList();
+                    });
+                  },
+                ),
+              ),
+
+              //لیست حساب ها
+              Expanded(
+                child: ListView.builder(
+                  itemCount: filteredAccounts.length,
+                  itemBuilder: (context, index) {
+                    final account = filteredAccounts[index];
+                    return Card(
+                      elevation: 3,
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 10,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: ListTile(
+                        leading: Icon(_getIcon(account.type), size: 32),
+                        title: Text(' حساب${account.type}'),
+                        subtitle: Text(account.id),
+                        trailing: Text(
+                          '${account.balance}تومان ',
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
-    );
-  }
+        );
+    }
 }
