@@ -58,7 +58,7 @@ class _AccountsListScreenState extends State<AccountsListScreen> {
                         decoration: const InputDecoration(
                           labelText: 'موجودی اولیه',
                         ),
-                        keyboardType: TextInput.number,
+                        keyboardType: TextInputType.number,
                       ),
                     ],
                   ),
@@ -74,7 +74,7 @@ class _AccountsListScreenState extends State<AccountsListScreen> {
                             id: DateTime.now().toString(),
                             type: typeController.text,
                             balance:
-                            int.tryParse(balanceController.text) ?? 0,
+                            double.tryParse(balanceController.text) ?? 0.0,
                           );
                           accounts.add(newAccount);
                           filteredAccounts.add(newAccount);
