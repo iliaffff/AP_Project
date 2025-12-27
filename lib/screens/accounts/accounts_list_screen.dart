@@ -18,7 +18,7 @@ class _AccountsListScreenState extends State<AccountsListScreen> {
   @override
   void initState() {
     super.initState();
-    filteredAccounts = FakeData.accounts;
+    filteredAccounts = List.form(FakeData.accounts);
   }
 
   IconData _getIcon(String type) {
@@ -31,6 +31,65 @@ class _AccountsListScreenState extends State<AccountsListScreen> {
 
     return Scaffold(
       appBar: AppBar(title: const Text('مدیریت حساب ها'), centerTitle: true),
+      actions: [
+        //ایجاد حساب جدید
+        IconButton(
+          icon: const Icon(Icons.add),
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (_) {
+                TextEditingController typeController = TextEditingController();
+                TextEditingcontroller balanceController = TextEditingController();
+
+                return AlertDialog(
+                  title: const Text('ایجاد حساب جدید'),
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      TextField(
+                        controller: typeController,
+                        decoration: const InputDecoration(
+                          labelText: 'نوع حساب',
+                        ),
+                      ),
+                      TextField(
+                        controller: balanceController,
+                        decoration: const InputDecoration(
+                          labelText: 'موجودی اولیه',
+                        ),
+                        keyboardType: TextInput.number,
+                      ),
+                    ],
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text('لغو'),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          final newAccount = Account(
+                            id: DateTime.now().toString(),
+                            type: typeController.text,
+                            balance:
+                            int.tryParse(balanceController.text) ?? 0,
+                          );
+                          accounts.add(newAccount);
+                          filteredAccounts.add(newAccount);
+                        });
+                        Navigator.pop(context);
+                      },
+                      child: const Text('ایجاد'),
+                    ),
+                  ],
+                );
+              },
+            );
+          },
+        ),
+      ],
       body: Column(
         children: [
           Padding(
