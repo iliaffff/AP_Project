@@ -95,4 +95,48 @@ public class AccountService {
 
         System.out.println(Messages.TRANSFER_SUCCESS);
     }
+
+    public static void showProfile(String accountNumber) {
+
+        Account account = AccountStorage.findByAccountNumber(accountNumber);
+
+        if (account == null) {
+            System.out.println(Messages.ACCOUNT_NOT_FOUND);
+            return;
+        }
+
+        System.out.println("شماره حساب: " + account.getAccountNumber());
+        System.out.println("نام صاحب حساب: " + account.getOwnerName());
+        System.out.println("موجودی: " + account.getBalance());
+    }
+
+    public static void updateProfileName(
+            String accountNumber,
+            String newName) {
+
+        if (newName == null || newName.trim().isEmpty()) {
+            System.out.println(Messages.INVALID_NAME);
+            return;
+        }
+
+        var accounts = AccountStorage.loadAll();
+        boolean found = false;
+
+        for (Account acc : accounts) {
+            if (acc.getAccountNumber().equals(accountNumber)) {
+                acc.setOwnerName(newName);
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            System.out.println(Messages.ACCOUNT_NOT_FOUND);
+            return;
+        }
+
+        AccountStorage.overwriteAll(accounts);
+        System.out.println(Messages.PROFILE_UPDATED);
+    }
+
 }

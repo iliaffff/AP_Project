@@ -47,5 +47,16 @@ public class AccountTest {
 
         System.out.println("=== پایان تست انتقال وجه ===");
 
+        System.out.println("=== تست پروفایل کاربری ===");
+
+        AccountService.showProfile("1001");
+
+        AccountService.updateProfileName("1001", "رضا");
+
+        AccountService.showProfile("1001");
+
+        AccountService.updateProfileName("1001", "");
+
+        AccountService.showProfile("9999");
     }
 }

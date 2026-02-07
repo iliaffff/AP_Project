@@ -27,6 +27,11 @@ public class Account {
         this.balance = balance;
     }
 
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
+
+
     public String toJson() {
         return "{"
                 + "\"accountNumber\":\"" + accountNumber + "\","

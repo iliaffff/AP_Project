@@ -21,4 +21,8 @@ public class Messages {
 
     public static final String SAME_ACCOUNT_TRANSFER = "خطا: حساب مبدا و مقصد نمی‌توانند یکسان باشند.";
 
+    // پیام‌های پروفایل کاربری
+    public static final String PROFILE_UPDATED = "اطلاعات پروفایل با موفقیت بروزرسانی شد.";
+
+    public static final String INVALID_NAME = "خطا: نام وارد شده نامعتبر است.";
 }
