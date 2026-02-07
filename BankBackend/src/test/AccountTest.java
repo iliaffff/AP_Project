@@ -27,5 +27,25 @@ public class AccountTest {
         AccountService.showAllAccounts();
 
         System.out.println("=== پایان تست مدیریت حساب‌ها ===");
+
+        System.out.println("=== شروع تست انتقال وجه ===");
+
+        // حساب 1001 قبلاً وجود دارد
+        AccountService.createAccount("2001", "محمد", 300000);
+
+        // تست انتقال موفق
+        AccountService.transferMoney("1001", "2001", 100000);
+
+        // تست موجودی ناکافی
+        AccountService.transferMoney("1001", "2001", 1000000);
+
+        // تست مبلغ منفی
+        AccountService.transferMoney("1001", "2001", -500);
+
+        // تست حساب نامعتبر
+        AccountService.transferMoney("1001", "9999", 50000);
+
+        System.out.println("=== پایان تست انتقال وجه ===");
+
     }
 }
