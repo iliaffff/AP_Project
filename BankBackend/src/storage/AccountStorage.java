@@ -3,53 +3,72 @@ package storage;
 import model.Account;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AccountStorage {
 
+    private static final Object lock = new Object();
     private static final String FILE_PATH = "BankBackend/accounts.json";
 
     public static void save(Account account) {
-        try (FileWriter writer = new FileWriter(FILE_PATH, true)) {
-            writer.write(account.toJson());
-            writer.write("\n");
-        } catch (IOException e) {
-            System.out.println("خطا در ذخیره اطلاعات حساب");
+        synchronized (lock) {
+            List<Account> accounts = loadAll();
+            accounts.add(account);
+            overwriteAll(accounts);
         }
     }
 
     public static List<Account> loadAll() {
-        List<Account> accounts = new ArrayList<>();
+        synchronized (lock) {
+            List<Account> accounts = new ArrayList<>();
+            try {
+                String content = Files.readString(Path.of(FILE_PATH)).trim();
+                if (content.equals("[]") || content.isEmpty()) {
+                    return accounts;
+                }
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                accounts.add(Account.fromJson(line));
+                content = content.substring(1, content.length() - 1); // remove [ ]
+                String[] objects = content.split("},\\s*\\{");
+
+                for (String obj : objects) {
+                    if (!obj.startsWith("{")) obj = "{" + obj;
+                    if (!obj.endsWith("}")) obj = obj + "}";
+                    accounts.add(Account.fromJson(obj));
+                }
+            } catch (IOException e) {
+                System.out.println("خطا در خواندن حساب‌ها.");
             }
-        } catch (IOException e) {
+            return accounts;
         }
-
-        return accounts;
     }
 
+
     public static Account findByAccountNumber(String accountNumber) {
-        for (Account account : loadAll()) {
-            if (account.getAccountNumber().equals(accountNumber)) {
-                return account;
+        synchronized (lock) {
+            for (Account acc : loadAll()) {
+                if (acc.getAccountNumber().equals(accountNumber)) {
+                    return acc;
+                }
             }
+            return null;
         }
-        return null;
     }
 
     public static void overwriteAll(List<Account> accounts) {
-        try (FileWriter writer = new FileWriter(FILE_PATH, false)) {
-            for (Account account : accounts) {
-                writer.write(account.toJson());
-                writer.write("\n");
+        synchronized (lock) {
+            try (FileWriter writer = new FileWriter(FILE_PATH)) {
+                writer.write("[\n");
+                for (int i = 0; i < accounts.size(); i++) {
+                    writer.write(accounts.get(i).toJson());
+                    if (i < accounts.size() - 1) writer.write(",\n");
+                }
+                writer.write("\n]");
+            } catch (IOException e) {
+                System.out.println("خطا در ذخیره حساب‌ها.");
             }
-        } catch (IOException e) {
-            System.out.println("خطا در بروزرسانی اطلاعات حساب‌ها");
         }
     }
 }
