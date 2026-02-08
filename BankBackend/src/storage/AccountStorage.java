@@ -10,7 +10,7 @@ import java.util.List;
 
 public class AccountStorage {
 
-    private static final Object lock = new Object();
+    static final Object lock = new Object();
     private static final String FILE_PATH = "BankBackend/accounts.json";
 
     public static void save(Account account) {
