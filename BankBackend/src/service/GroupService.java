@@ -5,6 +5,9 @@ import storage.GroupStorage;
 import storage.AccountStorage;
 import model.Account;
 import utils.Messages;
+import model.Transaction;
+import storage.TransactionStorage;
+import java.time.LocalDate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,6 +82,17 @@ public class GroupService {
         }
 
         GroupStorage.overwriteAll(groups);
+
+        Transaction transaction = new Transaction(
+                "SYSTEM",
+                "GROUP-" + groupId,
+                amount,
+                "GROUP_DEPOSIT",
+                LocalDate.now().toString()
+        );
+
+        TransactionStorage.save(transaction);
+
         System.out.println("واریز به گروه با موفقیت انجام شد.");
     }
 
@@ -112,6 +126,17 @@ public class GroupService {
         }
 
         GroupStorage.overwriteAll(groups);
+
+        Transaction transaction = new Transaction(
+                "GROUP-" + groupId,
+                "SYSTEM",
+                amount,
+                "GROUP_WITHDRAW",
+                LocalDate.now().toString()
+        );
+
+        TransactionStorage.save(transaction);
+
         System.out.println("برداشت از گروه با موفقیت انجام شد.");
     }
 }

@@ -3,6 +3,9 @@ package service;
 import model.Account;
 import storage.AccountStorage;
 import utils.Messages;
+import model.Transaction;
+import storage.TransactionStorage;
+import java.time.LocalDate;
 
 import java.util.List;
 
@@ -92,6 +95,16 @@ public class AccountService {
         toAccount.setBalance(toAccount.getBalance() + amount);
 
         AccountStorage.overwriteAll(AccountStorage.loadAll());
+
+        Transaction transaction = new Transaction(
+                fromAccountNumber,
+                toAccountNumber,
+                amount,
+                "TRANSFER",
+                LocalDate.now().toString()
+        );
+
+        TransactionStorage.save(transaction);
 
         System.out.println(Messages.TRANSFER_SUCCESS);
     }
