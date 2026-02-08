@@ -1,7 +1,7 @@
-{"from":"1001","to":"2001","amount":50000.0,"type":"TRANSFER","date":"2026-02-07"}
-{"from":"2001","to":"GROUP-G1","amount":30000.0,"type":"DEPOSIT","date":"2026-02-07"}
-{"from":"1001","to":"2001","amount":50000.0,"type":"TRANSFER","date":"2026-02-07"}
-{"from":"2001","to":"GROUP-G1","amount":30000.0,"type":"DEPOSIT","date":"2026-02-07"}
-{"from":"1001","to":"2001","amount":100000.0,"type":"TRANSFER","date":"2026-02-08"}
-{"from":"SYSTEM","to":"GROUP-G1","amount":100000.0,"type":"GROUP_DEPOSIT","date":"2026-02-08"}
-{"from":"GROUP-G1","to":"SYSTEM","amount":50000.0,"type":"GROUP_WITHDRAW","date":"2026-02-08"}
+[{"from":"1001","to":"2001","amount":50000.0,"type":"TRANSFER","date":"2026-02-07"},
+{"from":"2001","to":"GROUP-G1","amount":30000.0,"type":"DEPOSIT","date":"2026-02-07"},
+{"from":"1001","to":"2001","amount":50000.0,"type":"TRANSFER","date":"2026-02-07"},
+{"from":"2001","to":"GROUP-G1","amount":30000.0,"type":"DEPOSIT","date":"2026-02-07"},
+{"from":"1001","to":"2001","amount":100000.0,"type":"TRANSFER","date":"2026-02-08"},
+{"from":"SYSTEM","to":"GROUP-G1","amount":100000.0,"type":"GROUP_DEPOSIT","date":"2026-02-08"},
+{"from":"GROUP-G1","to":"SYSTEM","amount":50000.0,"type":"GROUP_WITHDRAW","date":"2026-02-08"}]
